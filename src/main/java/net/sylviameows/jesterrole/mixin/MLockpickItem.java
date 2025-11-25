@@ -1,11 +1,8 @@
 package net.sylviameows.jesterrole.mixin;
 
 import dev.doctor4t.trainmurdermystery.client.TMMClient;
-import dev.doctor4t.trainmurdermystery.index.TMMSounds;
 import dev.doctor4t.trainmurdermystery.item.LockpickItem;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.sylviameows.jesterrole.Jester;
 import org.spongepowered.asm.mixin.Mixin;

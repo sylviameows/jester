@@ -46,7 +46,8 @@ public abstract class MMoodRenderer {
     )
     private static float jester$getMood(PlayerMoodComponent instance, @Local(name = "gameWorldComponent") GameWorldComponent game) {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        if (player != null && game.isRole(player, Jester.ROLE)) return ((MPlayerMoodAccessor) instance).jester$getRealMood();
+        if (player != null && game.isRole(player, Jester.ROLE))
+            return ((MPlayerMoodAccessor) instance).jester$getRealMood();
         return instance.getMood();
     }
 

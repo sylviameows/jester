@@ -11,13 +11,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.*;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientLoginNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -30,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -78,7 +75,7 @@ public class Jester implements ModInitializer, ClientModInitializer {
 
 
         ServerLoginConnectionEvents.QUERY_START.register(((handler, server, sender, synchronizer) -> {
-            ServerLoginNetworking.registerReceiver(handler, CHANNEL, (_server,_handler,understood,buf,_synchronizer,responder) -> {
+            ServerLoginNetworking.registerReceiver(handler, CHANNEL, (_server, _handler, understood, buf, _synchronizer, responder) -> {
                 if (!understood) {
                     handler.disconnect(Text.literal("")
                             .append(Text.literal("ᴍɪssɪɴɢ ᴍᴏᴅ").withColor(ROLE_COLOR).formatted(Formatting.BOLD))
@@ -107,7 +104,7 @@ public class Jester implements ModInitializer, ClientModInitializer {
     public void onInitializeClient() {
         ClientPlayNetworking.registerGlobalReceiver(JesterWinPayload.ID, new JesterWinPayload.Receiver());
 
-        ClientLoginConnectionEvents.QUERY_START.register((ClientLoginNetworkHandler handler, MinecraftClient client)-> {
+        ClientLoginConnectionEvents.QUERY_START.register((ClientLoginNetworkHandler handler, MinecraftClient client) -> {
             ClientLoginNetworking.registerReceiver(CHANNEL, (_client, _handler, buf, callbacksConsumer) -> {
                 boolean jesterWin = buf.readBoolean();
                 setJesterWin(jesterWin, null);

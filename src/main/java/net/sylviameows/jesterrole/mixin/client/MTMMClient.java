@@ -41,7 +41,8 @@ public abstract class MTMMClient {
                 if (target instanceof PlayerBodyEntity) cir.setReturnValue(0x606060);
             }
             return;
-        };
+        }
+        ;
         if (TMMClient.isPlayerSpectatingOrCreative() && target instanceof PlayerEntity player) {
             if (gameComponent.isRole(player, Jester.ROLE)) cir.setReturnValue(Jester.ROLE_COLOR);
         }
