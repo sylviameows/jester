@@ -46,7 +46,7 @@ public class Jester implements ModInitializer, ClientModInitializer {
 
     public static final int ROLE_COLOR = 0xF8C8DC;
     public static TMMRoles.Role ROLE = new TMMRoles.Role(Jester.id("role"), ROLE_COLOR, false, false);
-    public static RoleAnnouncementTexts.RoleAnnouncementText TEXT = new RoleAnnouncementTexts.RoleAnnouncementText("jester", ROLE_COLOR);
+    public static RoleAnnouncementTexts.RoleAnnouncementText TEXT = new JesterAnnouncementText();
 
     private static boolean JESTER_WIN = false;
 

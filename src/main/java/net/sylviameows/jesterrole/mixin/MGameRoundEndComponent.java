@@ -8,7 +8,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.sylviameows.jesterrole.Jester;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
 
 @Mixin(GameRoundEndComponent.class)
 public class MGameRoundEndComponent {
@@ -22,6 +26,21 @@ public class MGameRoundEndComponent {
             return Jester.TEXT;
         }
         return value;
+    }
+
+    @Inject(
+            method = "didWin",
+            at = @At(value = "RETURN", ordinal = 1),
+            cancellable = true
+    )
+    private void jester$didWin(UUID uuid, CallbackInfoReturnable<Boolean> cir, @Local(name = "detail") GameRoundEndComponent.RoundEndData detail) {
+        if (detail.role().equals(Jester.TEXT)) {
+            if (Jester.isJesterWin()) {
+                cir.setReturnValue(true);
+            } else {
+                cir.setReturnValue(false);
+            }
+        }
     }
 
 }
