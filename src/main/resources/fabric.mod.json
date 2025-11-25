@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "jesterrole",
+  "id": "jester",
   "version": "${version}",
   "name": "Jester Role Addon",
   "description": "",
