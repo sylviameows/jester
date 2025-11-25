@@ -23,10 +23,6 @@ abstract public class MServerEntry {
     @Shadow
     private ServerInfo server;
 
-
-    @Shadow
-    protected abstract void draw(DrawContext context, int x, int y, Identifier textureId);
-
     @Inject(
             method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/multiplayer/MultiplayerServerListWidget$ServerEntry;draw(Lnet/minecraft/client/gui/DrawContext;IILnet/minecraft/util/Identifier;)V", shift = At.Shift.AFTER)

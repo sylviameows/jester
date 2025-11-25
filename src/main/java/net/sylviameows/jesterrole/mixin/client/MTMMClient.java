@@ -42,7 +42,7 @@ public abstract class MTMMClient {
             }
             return;
         }
-        ;
+
         if (TMMClient.isPlayerSpectatingOrCreative() && target instanceof PlayerEntity player) {
             if (gameComponent.isRole(player, Jester.ROLE)) cir.setReturnValue(Jester.ROLE_COLOR);
         }
