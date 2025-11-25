@@ -1,5 +1,7 @@
 package net.sylviameows.jesterrole;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -16,6 +18,7 @@ public record JesterWinPayload(boolean isJesterWin) implements CustomPayload {
         return ID;
     }
 
+    @Environment(EnvType.CLIENT)
     public static class Receiver implements ClientPlayNetworking.PlayPayloadHandler<JesterWinPayload> {
         @Override
         public void receive(@NotNull JesterWinPayload payload, ClientPlayNetworking.@NotNull Context context) {

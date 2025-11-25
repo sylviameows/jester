@@ -11,7 +11,7 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.sylviameows.jesterrole.Jester"
+      "net.sylviameows.jesterrole.JesterClient"
     ],
     "main": [
       "net.sylviameows.jesterrole.Jester"
