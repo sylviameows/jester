@@ -16,7 +16,9 @@
   "client": [
     "client.MMoodRenderer",
     "client.MRoundTextRenderer",
-    "client.MTMMClient",
+    "client.MServerEntry",
+    "client.MServerList",
+    "client.MTMMClient"
   ],
   "injectors": {
     "defaultRequire": 1
