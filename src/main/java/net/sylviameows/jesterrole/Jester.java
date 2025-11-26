@@ -1,9 +1,11 @@
 package net.sylviameows.jesterrole;
 
+import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
+import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,7 +40,15 @@ public class Jester implements ModInitializer {
     public static boolean ENABLED = true;
 
     public static final int ROLE_COLOR = 0xF8C8DC;
-    public static TMMRoles.Role ROLE = new TMMRoles.Role(Jester.id("role"), ROLE_COLOR, false, false);
+    public static Role ROLE = new Role(
+            Jester.id("role"),
+            ROLE_COLOR,
+            false,
+            false,
+            Role.MoodType.REAL,
+            GameConstants.getInTicks(0, 10),
+            false
+    );
     public static RoleAnnouncementTexts.RoleAnnouncementText TEXT = new JesterAnnouncementText();
 
     private static boolean JESTER_WIN = false;
