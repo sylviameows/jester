@@ -12,13 +12,14 @@
     "MPlayerMoodComponent",
     "MRoleAnnouncementText",
     "MSmallDoorBlock",
-    "MTrainDoorBlock"
+    "MTrainDoorBlock",
+    "client.ServerListAccessor"
   ],
   "client": [
     "client.MMoodRenderer",
+    "client.MMultiplayerScreen",
     "client.MRoundTextRenderer",
     "client.MServerEntry",
-    "client.MServerList",
     "client.MTMMClient"
   ],
   "injectors": {
