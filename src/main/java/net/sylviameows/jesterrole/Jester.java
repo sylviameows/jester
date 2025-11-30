@@ -23,7 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -32,6 +34,8 @@ public class Jester implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final Identifier CHANNEL = id("verify");
+
+    public static final List<UUID> forcedJesters = new ArrayList<>();
 
     public static @NotNull Identifier id(String name) {
         return Identifier.of(MOD_ID, name);

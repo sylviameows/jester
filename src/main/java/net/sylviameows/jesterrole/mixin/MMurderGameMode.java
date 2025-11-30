@@ -1,6 +1,7 @@
 package net.sylviameows.jesterrole.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
@@ -8,6 +9,7 @@ import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import dev.doctor4t.trainmurdermystery.util.AnnounceWelcomePayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -21,8 +23,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @Mixin(MurderGameMode.class)
 public class MMurderGameMode {
@@ -70,13 +74,36 @@ public class MMurderGameMode {
     private static void assignJester(@NotNull ServerWorld world, @NotNull List<ServerPlayerEntity> players, GameWorldComponent gameComponent, CallbackInfoReturnable<Integer> cir) {
         if (!Jester.ENABLED) return;
 
-        List<ServerPlayerEntity> potentials = players.stream().filter(player -> gameComponent.isRole(player, TMMRoles.CIVILIAN)).toList();
-        int selection = RANDOM.nextInt(potentials.size());
+        List<ServerPlayerEntity> potentials = new ArrayList<>(players.stream().filter(player -> gameComponent.isRole(player, TMMRoles.CIVILIAN)).toList());
 
-        ServerPlayerEntity player = potentials.get(selection);
+        int count = 0;
+        if (!Jester.forcedJesters.isEmpty()) {
+            for (UUID uuid : Jester.forcedJesters) {
+                if (!gameComponent.isRole(uuid, TMMRoles.CIVILIAN)) {
+                    continue;
+                }
 
-        player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
-        gameComponent.addRole(player, Jester.ROLE);
+                potentials.removeIf(player -> player.getUuid().equals(uuid));
+
+                PlayerEntity player = world.getPlayerByUuid(uuid);
+                if (player instanceof ServerPlayerEntity serverPlayer && players.contains(serverPlayer) && gameComponent.isRole(player, Jester.ROLE)) {
+                    player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
+                }
+
+                gameComponent.addRole(uuid, Jester.ROLE);
+                count++;
+            }
+
+            Jester.forcedJesters.clear();
+        }
+
+        if (count < 1) {
+            int selection = RANDOM.nextInt(potentials.size());
+            ServerPlayerEntity player = potentials.get(selection);
+
+            player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
+            gameComponent.addRole(player, Jester.ROLE);
+        }
     }
 
 

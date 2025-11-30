@@ -4,6 +4,7 @@
   "package": "net.sylviameows.jesterrole.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "MForceRoleCommand",
     "MGameFunctions",
     "MGameRoundEndComponent",
     "MLockpickItem",
