@@ -6,6 +6,7 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
+import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.*;
@@ -14,6 +15,7 @@ import net.fabricmc.loader.api.SemanticVersion;
 import net.fabricmc.loader.api.Version;
 import net.fabricmc.loader.api.VersionParsingException;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -22,6 +24,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sylviameows.jesterrole.commands.RoleChanceCommand;
 import net.sylviameows.jesterrole.mixin.MPlayerMoodAccessor;
+import org.agmas.harpymodloader.Harpymodloader;
+import org.agmas.harpymodloader.events.ModdedRoleAssigned;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,6 +68,14 @@ public class Jester implements ModInitializer {
 
         TMMRoles.registerRole(ROLE);
         RoleAnnouncementTexts.registerRoleAnnouncementText(Jester.TEXT);
+
+        if (FabricLoader.getInstance().isModLoaded("harpymodloader")) {
+            ModdedRoleAssigned.EVENT.register((player, role) -> {
+                if (role.equals(Jester.ROLE)) {
+                    player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
+                }
+            });
+        }
 
 
         ServerLoginConnectionEvents.QUERY_START.register(((handler, server, sender, synchronizer) -> {

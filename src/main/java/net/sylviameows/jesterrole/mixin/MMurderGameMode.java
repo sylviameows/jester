@@ -87,11 +87,12 @@ public class MMurderGameMode {
                 potentials.removeIf(player -> player.getUuid().equals(uuid));
 
                 PlayerEntity player = world.getPlayerByUuid(uuid);
+                gameComponent.addRole(uuid, Jester.ROLE);
+
                 if (player instanceof ServerPlayerEntity serverPlayer && players.contains(serverPlayer) && gameComponent.isRole(player, Jester.ROLE)) {
                     player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
                 }
 
-                gameComponent.addRole(uuid, Jester.ROLE);
                 count++;
             }
 

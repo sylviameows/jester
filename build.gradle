@@ -52,6 +52,8 @@ dependencies {
     modImplementation ("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
     modImplementation ("org.ladysnake.cardinal-components-api:cardinal-components-scoreboard:${project.cca_version}")
 
+    modImplementation(fileTree(dir: '.libs', include: ['*.jar']))
+
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
