@@ -9,6 +9,7 @@ import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.*;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.SemanticVersion;
 import net.fabricmc.loader.api.Version;
 import net.fabricmc.loader.api.VersionParsingException;
@@ -47,7 +48,7 @@ public class Jester implements ModInitializer {
 
     public static final int ROLE_COLOR = 0xF8C8DC;
     public static Role ROLE = new Role(
-            Jester.id("role"),
+            Jester.id("jester"),
             ROLE_COLOR,
             false,
             false,

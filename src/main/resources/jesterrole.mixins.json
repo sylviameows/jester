@@ -12,16 +12,17 @@
     "MPlayerMoodAccessor",
     "MPlayerMoodComponent",
     "MSmallDoorBlock",
+    "MTMMRoles",
     "MTrainDoorBlock"
   ],
   "client": [
-    "client.MRoleAnnouncementText",
-    "client.ServerListAccessor",
     "client.MMoodRenderer",
     "client.MMultiplayerScreen",
+    "client.MRoleAnnouncementText",
     "client.MRoundTextRenderer",
     "client.MServerEntry",
-    "client.MTMMClient"
+    "client.MTMMClient",
+    "client.ServerListAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
