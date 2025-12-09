@@ -13,8 +13,7 @@ public class JesterWorldComponent implements AutoSyncedComponent {
             ComponentRegistry.getOrCreate(Identifier.of("jester", "world"), JesterWorldComponent.class);
     private final World world;
 
-
-    private boolean enabled = true;
+    private boolean enabled = false;
     private double chance = 1.0;
 
     private boolean winner = false;

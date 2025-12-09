@@ -1,6 +1,5 @@
 package net.sylviameows.jesterrole;
 
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,7 +24,6 @@ public class JesterClient implements ClientModInitializer {
 
         ClientLoginConnectionEvents.QUERY_START.register((ClientLoginNetworkHandler handler, MinecraftClient client) -> {
             ClientLoginNetworking.registerReceiver(Jester.CHANNEL, (_client, _handler, buf, callbacksConsumer) -> {
-
                 PacketByteBuf out = PacketByteBufs.create();
                 var mod = FabricLoader.getInstance().getModContainer(Jester.MOD_ID);
                 if (mod.isPresent()) {

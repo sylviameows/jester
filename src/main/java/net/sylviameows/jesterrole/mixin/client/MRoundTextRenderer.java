@@ -10,8 +10,10 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.sylviameows.jesterrole.Jester;
+import net.sylviameows.jesterrole.JesterClient;
 import net.sylviameows.jesterrole.cca.JesterWorldComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -62,7 +64,15 @@ public class MRoundTextRenderer {
             if (entry.role() == RoleAnnouncementTexts.CIVILIAN) civilianTotal += 1;
         CIVILIAN_TOTAL.set(civilianTotal);
         JESTER_COUNT.set(0);
-        context.drawTextWithShadow(renderer, Jester.TEXT.titleText, -renderer.getWidth(Jester.TEXT.titleText) / 2 - 60, 14 + 16 + 24 * ((civilianTotal + 3) / 4), 0xFFFFFF);
+
+        MutableText text = Jester.TEXT.titleText.copy();
+
+        JesterWorldComponent component = JesterWorldComponent.KEY.get(player.getWorld());
+        if (!component.isEnabled()) {
+            text = text.formatted(Formatting.STRIKETHROUGH).withColor(0xAAAAAA);
+        }
+
+        context.drawTextWithShadow(renderer, text, -renderer.getWidth(text) / 2 - 60, 14 + 16 + 24 * ((civilianTotal + 3) / 4), 0xFFFFFF);
     }
 
     @Inject(
