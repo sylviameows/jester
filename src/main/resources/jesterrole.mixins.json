@@ -12,7 +12,7 @@
     "MPlayerMoodAccessor",
     "MPlayerMoodComponent",
     "MSmallDoorBlock",
-    "MTMMRoles",
+    "MWatheRoles",
     "MTrainDoorBlock"
   ],
   "client": [
@@ -21,7 +21,7 @@
     "client.MRoleAnnouncementText",
     "client.MRoundTextRenderer",
     "client.MServerEntry",
-    "client.MTMMClient",
+    "client.MWatheClient",
     "client.ServerListAccessor"
   ],
   "injectors": {

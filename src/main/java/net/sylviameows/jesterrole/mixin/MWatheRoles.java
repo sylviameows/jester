@@ -1,15 +1,15 @@
 package net.sylviameows.jesterrole.mixin;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TMMRoles.class)
-public class MTMMRoles {
+@Mixin(WatheRoles.class)
+public class MWatheRoles {
 
     @Inject(method = "registerRole", at = @At("HEAD"), cancellable = true)
     private static void registerRole(Role role, CallbackInfoReturnable<Role> cir) {

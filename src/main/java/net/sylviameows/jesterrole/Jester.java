@@ -1,12 +1,12 @@
 package net.sylviameows.jesterrole;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.index.WatheItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.*;
@@ -24,7 +24,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sylviameows.jesterrole.commands.RoleChanceCommand;
 import net.sylviameows.jesterrole.mixin.MPlayerMoodAccessor;
-import org.agmas.harpymodloader.Harpymodloader;
 import org.agmas.harpymodloader.events.ModdedRoleAssigned;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -66,13 +65,13 @@ public class Jester implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Attempting role injection.");
 
-        TMMRoles.registerRole(ROLE);
+        WatheRoles.registerRole(ROLE);
         RoleAnnouncementTexts.registerRoleAnnouncementText(Jester.TEXT);
 
         if (FabricLoader.getInstance().isModLoaded("harpymodloader")) {
             ModdedRoleAssigned.EVENT.register((player, role) -> {
                 if (role.equals(Jester.ROLE)) {
-                    player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
+                    player.giveItemStack(new ItemStack(WatheItems.LOCKPICK));
                 }
             });
         }

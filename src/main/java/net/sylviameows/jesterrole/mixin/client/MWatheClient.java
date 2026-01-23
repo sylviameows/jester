@@ -1,8 +1,8 @@
 package net.sylviameows.jesterrole.mixin.client;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.TMMClient;
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.WatheClient;
+import dev.doctor4t.wathe.entity.PlayerBodyEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,15 +15,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TMMClient.class)
-public abstract class MTMMClient {
+@Mixin(WatheClient.class)
+public abstract class MWatheClient {
 
     @Shadow
     public static GameWorldComponent gameComponent;
 
     @Redirect(
             method = "getInstinctHighlight",
-            at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;isInnocent(Lnet/minecraft/entity/player/PlayerEntity;)Z")
+            at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;isInnocent(Lnet/minecraft/entity/player/PlayerEntity;)Z")
     )
     private static boolean isInnocent(GameWorldComponent instance, PlayerEntity player) {
         if (instance.isRole(player, Jester.ROLE)) return true;
@@ -37,13 +37,13 @@ public abstract class MTMMClient {
     )
     private static void getInstinctHighlight(Entity target, CallbackInfoReturnable<Integer> cir) {
         if (cir.getReturnValue() == -1) {
-            if (isJester() && TMMClient.instinctKeybind.isPressed()) {
+            if (isJester() && WatheClient.instinctKeybind.isPressed()) {
                 if (target instanceof PlayerBodyEntity) cir.setReturnValue(0x606060);
             }
             return;
         }
 
-        if (TMMClient.isPlayerSpectatingOrCreative() && target instanceof PlayerEntity player) {
+        if (WatheClient.isPlayerSpectatingOrCreative() && target instanceof PlayerEntity player) {
             if (gameComponent.isRole(player, Jester.ROLE)) cir.setReturnValue(Jester.ROLE_COLOR);
         }
     }

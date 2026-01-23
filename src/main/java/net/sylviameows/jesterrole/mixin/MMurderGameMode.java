@@ -1,12 +1,12 @@
 package net.sylviameows.jesterrole.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
-import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
-import dev.doctor4t.trainmurdermystery.util.AnnounceWelcomePayload;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
+import dev.doctor4t.wathe.game.gamemode.MurderGameMode;
+import dev.doctor4t.wathe.index.WatheItems;
+import dev.doctor4t.wathe.util.AnnounceWelcomePayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -47,13 +47,13 @@ public class MMurderGameMode {
             @Local(name = "gameWorldComponent") GameWorldComponent game,
             @Local(name = "players") List<ServerPlayerEntity> players
     ) {
-        int killerCount = game.getAllWithRole(TMMRoles.KILLER).size();
+        int killerCount = game.getAllWithRole(WatheRoles.KILLER).size();
 
         ServerPlayNetworking.send(player, new AnnounceWelcomePayload(
                 RoleAnnouncementTexts.ROLE_ANNOUNCEMENT_TEXTS.indexOf(
-                        game.isRole(player, TMMRoles.KILLER)
+                        game.isRole(player, WatheRoles.KILLER)
                                 ? RoleAnnouncementTexts.KILLER
-                                : game.isRole(player, TMMRoles.VIGILANTE)
+                                : game.isRole(player, WatheRoles.VIGILANTE)
                                 ? RoleAnnouncementTexts.VIGILANTE
                                 : game.isRole(player, Jester.ROLE)
                                 ? Jester.TEXT
@@ -67,7 +67,7 @@ public class MMurderGameMode {
             method = "assignRolesAndGetKillerCount",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/ScoreboardRoleSelectorComponent;assignVigilantes(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;Ljava/util/List;I)V",
+                    target = "Ldev/doctor4t/wathe/cca/ScoreboardRoleSelectorComponent;assignVigilantes(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/wathe/cca/GameWorldComponent;Ljava/util/List;I)V",
                     shift = At.Shift.AFTER
             )
     )
@@ -75,12 +75,12 @@ public class MMurderGameMode {
         JesterWorldComponent component = JesterWorldComponent.KEY.get(world);
         if (!component.isEnabled()) return;
 
-        List<ServerPlayerEntity> potentials = new ArrayList<>(players.stream().filter(player -> gameComponent.isRole(player, TMMRoles.CIVILIAN)).toList());
+        List<ServerPlayerEntity> potentials = new ArrayList<>(players.stream().filter(player -> gameComponent.isRole(player, WatheRoles.CIVILIAN)).toList());
 
         int count = 0;
         if (!Jester.forcedJesters.isEmpty()) {
             for (UUID uuid : Jester.forcedJesters) {
-                if (!gameComponent.isRole(uuid, TMMRoles.CIVILIAN)) {
+                if (!gameComponent.isRole(uuid, WatheRoles.CIVILIAN)) {
                     continue;
                 }
 
@@ -90,7 +90,7 @@ public class MMurderGameMode {
                 gameComponent.addRole(uuid, Jester.ROLE);
 
                 if (player instanceof ServerPlayerEntity serverPlayer && players.contains(serverPlayer) && gameComponent.isRole(player, Jester.ROLE)) {
-                    player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
+                    player.giveItemStack(new ItemStack(WatheItems.LOCKPICK));
                 }
 
                 count++;
@@ -103,7 +103,7 @@ public class MMurderGameMode {
             int selection = RANDOM.nextInt(potentials.size());
             ServerPlayerEntity player = potentials.get(selection);
 
-            player.giveItemStack(new ItemStack(TMMItems.LOCKPICK));
+            player.giveItemStack(new ItemStack(WatheItems.LOCKPICK));
             gameComponent.addRole(player, Jester.ROLE);
         }
     }

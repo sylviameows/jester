@@ -1,7 +1,7 @@
 package net.sylviameows.jesterrole.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
-import dev.doctor4t.trainmurdermystery.command.ForceRoleCommand;
+import dev.doctor4t.wathe.command.ForceRoleCommand;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -21,7 +21,7 @@ public class MForceRoleCommand {
 
     @Inject(method = "register", at = @At(value = "TAIL"))
     private static void jester$force(@NotNull CommandDispatcher<ServerCommandSource> dispatcher, CallbackInfo ci) {
-        dispatcher.register(CommandManager.literal("tmm:forceRole")
+        dispatcher.register(CommandManager.literal("wathe:forceRole")
                 .then(CommandManager.literal("jester").then(CommandManager.argument("players", EntityArgumentType.players())
                         .executes(context -> forceJester(context.getSource(), EntityArgumentType.getPlayers(context, "players")))
                 ))

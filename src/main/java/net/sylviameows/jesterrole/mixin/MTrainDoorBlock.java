@@ -1,7 +1,7 @@
 package net.sylviameows.jesterrole.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.block.TrainDoorBlock;
+import dev.doctor4t.wathe.block.TrainDoorBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;

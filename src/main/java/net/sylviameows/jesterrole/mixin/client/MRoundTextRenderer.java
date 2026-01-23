@@ -1,9 +1,9 @@
 package net.sylviameows.jesterrole.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameRoundEndComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
-import dev.doctor4t.trainmurdermystery.client.gui.RoundTextRenderer;
+import dev.doctor4t.wathe.cca.GameRoundEndComponent;
+import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
+import dev.doctor4t.wathe.client.gui.RoundTextRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -54,7 +54,7 @@ public class MRoundTextRenderer {
             method = "renderHud",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameRoundEndComponent;getPlayers()Ljava/util/List;",
+                    target = "Ldev/doctor4t/wathe/cca/GameRoundEndComponent;getPlayers()Ljava/util/List;",
                     ordinal = 2
             )
     )
@@ -77,7 +77,7 @@ public class MRoundTextRenderer {
 
     @Inject(
             method = "renderHud",
-            at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameRoundEndComponent$RoundEndData;role()Ldev/doctor4t/trainmurdermystery/client/gui/RoleAnnouncementTexts$RoleAnnouncementText;", ordinal = 1)
+            at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameRoundEndComponent$RoundEndData;role()Ldev/doctor4t/wathe/client/gui/RoleAnnouncementTexts$RoleAnnouncementText;", ordinal = 1)
     )
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     private static void jester$renderPlayer(TextRenderer renderer, ClientPlayerEntity player, DrawContext context, CallbackInfo ci, @Local(name = "entry") GameRoundEndComponent.RoundEndData entry) {

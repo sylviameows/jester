@@ -1,9 +1,9 @@
 package net.sylviameows.jesterrole.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.MoodRenderer;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.client.gui.MoodRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -42,7 +42,7 @@ public abstract class MMoodRenderer {
 
     @Redirect(
             method = "renderHud",
-            at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent;getMood()F", ordinal = 0)
+            at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/PlayerMoodComponent;getMood()F", ordinal = 0)
     )
     private static float jester$getMood(PlayerMoodComponent instance, @Local(name = "gameWorldComponent") GameWorldComponent game) {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
@@ -55,7 +55,7 @@ public abstract class MMoodRenderer {
             method = "renderHud",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/client/gui/MoodRenderer;renderCivilian(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;F)V"
+                    target = "Ldev/doctor4t/wathe/client/gui/MoodRenderer;renderCivilian(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;F)V"
             )
     )
     private static void renderJester(TextRenderer textRenderer, DrawContext context, float prevMood, @Local(name = "gameWorldComponent") GameWorldComponent game, @Local(name = "player") PlayerEntity player) {

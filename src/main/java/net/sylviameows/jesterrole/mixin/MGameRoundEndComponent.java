@@ -1,9 +1,9 @@
 package net.sylviameows.jesterrole.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameRoundEndComponent;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
+import dev.doctor4t.wathe.cca.GameRoundEndComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import net.sylviameows.jesterrole.Jester;
@@ -27,7 +27,7 @@ public class MGameRoundEndComponent {
 
     @ModifyArg(
             method = "setRoundEndData",
-            at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameRoundEndComponent$RoundEndData;<init>(Lcom/mojang/authlib/GameProfile;Ldev/doctor4t/trainmurdermystery/client/gui/RoleAnnouncementTexts$RoleAnnouncementText;Z)V")
+            at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameRoundEndComponent$RoundEndData;<init>(Lcom/mojang/authlib/GameProfile;Ldev/doctor4t/wathe/client/gui/RoleAnnouncementTexts$RoleAnnouncementText;Z)V")
     )
     private static RoleAnnouncementTexts.RoleAnnouncementText jesterRole(RoleAnnouncementTexts.RoleAnnouncementText value, @Local(name = "game") GameWorldComponent game, @Local(name = "player") ServerPlayerEntity player) {
         if (game.isRole(player, Jester.ROLE)) {

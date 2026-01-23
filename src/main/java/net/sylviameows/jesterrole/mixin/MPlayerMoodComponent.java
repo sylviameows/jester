@@ -1,8 +1,8 @@
 package net.sylviameows.jesterrole.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.sylviameows.jesterrole.Jester;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -41,7 +41,7 @@ public abstract class MPlayerMoodComponent implements AutoSyncedComponent, Serve
 
     @Redirect(
             method = "serverTick",
-            at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent;setMood(F)V", ordinal = 0)
+            at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/PlayerMoodComponent;setMood(F)V", ordinal = 0)
     )
     private void jester$serverTickMood(PlayerMoodComponent instance, float mood, @Local(name = "gameWorldComponent") GameWorldComponent game) {
         instance.setMood(jester$updateMood(mood, game));
@@ -49,7 +49,7 @@ public abstract class MPlayerMoodComponent implements AutoSyncedComponent, Serve
 
     @Redirect(
             method = "clientTick",
-            at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent;setMood(F)V", ordinal = 0)
+            at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/PlayerMoodComponent;setMood(F)V", ordinal = 0)
     )
     private void jester$clientTickMood(PlayerMoodComponent instance, float mood) {
         var game = GameWorldComponent.KEY.get(this.player.getWorld());
